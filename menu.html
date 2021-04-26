@@ -7,15 +7,67 @@
     <title>today's meal</title>
 </head>
 <body>
-    <form method="get" action="page.jsp"> <!--action부분 수정 필-->
-        <label><input type="checkbox" name="menu" value="all"> 전체</label>
-        <label><input type="checkbox" name="menu" value="kor"> 한식</label>
-        <label><input type="checkbox" name="menu" value="jp"> 일식</label>
-        <label><input type="checkbox" name="menu" value="chn"> 중식</label>
-        <label><input type="checkbox" name="menu" value="west"> 양식</label>
-        <label><input type="checkbox" name="menu" value="ff"> 패스트푸드</label>
-        <label><input type="checkbox" name="menu" value="etc"> 기타</label>
-        <p><input type="submit" value="메뉴 선택 완료"> <input type="reset" value="다시 고르기"></p>
-    </form>
+    <script>
+        function checkSelectAll(checkbox)  {
+            const selectall = document.querySelector('input[name="menu_all"]');
+            
+            if(checkbox.checked === false)  {
+                selectall.checked = false;
+            }
+            
+            menuResult();
+        }
+
+        function selectAll(selectAll)  {
+            const checkboxes = document.getElementsByName('menu');
+            
+            checkboxes.forEach((checkbox) => {
+                checkbox.checked = selectAll.checked
+            })
+
+            menuResult();
+        }
+
+        function resetCheckbox(){
+            const selectall = document.querySelector('input[name="menu_all"]');
+            selectall.checked = false;
+            selectAll(selectall);
+
+            menuResult();
+        }
+
+        // 출력
+        
+        function menuResult(){
+            const query = 'input[name="menu"]:checked';
+            const selectedEls = 
+            document.querySelectorAll(query);
+            
+            // 선택된 목록에서 value 찾기
+            let result = '';
+            selectedEls.forEach((el) => {
+                result += el.value + ', ';
+            });
+            result = result.slice(0, -2);
+            result += ' 메뉴를 추천드려요 :D';
+
+            // 출력
+            document.getElementById('result').innerText = result;
+
+        }
+    </script>
+    
+
+    <input type="checkbox" name="menu_all" value="전체" onclick="selectAll(this)"> 전체
+    <input type="checkbox" name="menu" value="한식" onclick="checkSelectAll(this)"> 한식
+    <input type="checkbox" name="menu" value="일식" onclick="checkSelectAll(this)"> 일식
+    <input type="checkbox" name="menu" value="중식" onclick="checkSelectAll(this)"> 중식
+    <input type="checkbox" name="menu" value="양식" onclick="checkSelectAll(this)"> 양식
+    <input type="checkbox" name="menu" value="패스트푸드" onclick="checkSelectAll(this)"> 패스트푸드
+    <input type="checkbox" name="menu" value="기타" onclick="checkSelectAll(this)"> 기타
+    <button onclick='location.href = "result.html"'>메뉴 선택 완료</button>
+    <button onclick='resetCheckbox()'>메뉴 다시 선택</button>
+    <div id='result'></div>
+
 </body>
 </html>
