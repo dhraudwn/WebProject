@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>today's meal</title>
+</head>
+<body>
+    <form method="get" action="page.jsp"> <!--action부분 수정 필-->
+        <label><input type="checkbox" name="menu" value="all"> 전체</label>
+        <label><input type="checkbox" name="menu" value="kor"> 한식</label>
+        <label><input type="checkbox" name="menu" value="jp"> 일식</label>
+        <label><input type="checkbox" name="menu" value="chn"> 중식</label>
+        <label><input type="checkbox" name="menu" value="west"> 양식</label>
+        <label><input type="checkbox" name="menu" value="ff"> 패스트푸드</label>
+        <label><input type="checkbox" name="menu" value="etc"> 기타</label>
+        <p><input type="submit" value="메뉴 선택 완료"> <input type="reset" value="다시 고르기"></p>
+    </form>
+</body>
+</html>
