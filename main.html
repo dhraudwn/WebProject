@@ -10,15 +10,126 @@
             text-align: center;
         }
         img{
-            width: 40%;
-            height: 40%;
+            position: static;
+            width: 50%;
+            height: 50%;
+            object-fit: contain;
+
         }
+        div{
+            width: 80%;
+            height: 80%;
+            position : relative;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .door{
+            color : blue;
+            display: flex;
+            position: absolute;
+            align-items: center;
+            justify-content: center;
+        }
+        .door:hover{
+            text-decoration: underline;
+        }
+        #north{
+            width: 40%;
+            height : 60%;
+            top : 0%;
+            left : 20%;
+        }
+        #east{
+            width: 20%;
+            height : 80%;
+            top: 15%;
+            right : 20%;
+        }
+        #south{
+            width: 40%;
+            height : 20%;
+            bottom: 0%;
+            left : 30%;
+        }
+
     </style>
 </head>
 <body>
-    <p>어디서 밥을 드시나요?</p>
-    <img src="image/map.png" alt="kyungpook-univ map">
-    <br>
-    <a href="menu.html">메뉴 추천 받기</a>
+    <script>
+        let result = '';
+        var n = 0;
+        var e = 0;
+        var s = 0;
+
+        function nClick(){
+            if(n === 0){
+                n = 1;
+            }
+            else{
+                n = 0;
+            }
+            message();
+        }
+        function eClick(){
+            if(e === 0){
+                e = 1;
+            }
+            else{
+                e = 0;
+            }
+            message();
+        }
+        function sClick(){
+            if(s === 0){
+                s = 1;
+            }
+            else{
+                s = 0;
+            }
+            message();
+        }
+        function message(){
+            result = '';
+            if(n === 1) result = result + "북문, ";
+            if(e === 1) result = result + "동문, ";
+            if(s === 1) result = result + "쪽문, ";
+            result = result.slice(0, -2);
+
+            if(result != ''){
+                document.getElementById('result').innerText = result + ' 에서 드시겠어요?';
+            }
+
+            else{
+                document.getElementById('result').innerText = result;
+            }
+        }
+        function complete(){
+            result = result.replace(/, /g, "+");
+            location.href = "menu.html?door="+result;
+        }
+
+    </script>
+    <p>
+        어디서 밥을 드시나요?
+        <br>
+        (밥 먹을 곳을 클릭해주세요:D)
+    </p>
+    <div class="map">
+        <img src="image/map.png" alt="kyungpook-univ map">
+        <div class="door" id="north" onclick="nClick()">
+            북문
+        </div>
+        <div class="door" id="east" onclick="eClick()">
+            동문
+        </div>
+        <div class="door" id="south" onclick="sClick()">
+            쪽문
+        </div>
+    </div>
+    <p>
+        <div id='result'></div>
+        <button onclick='complete()'>장소 선택 완료</button>
+    </p>
 </body>
 </html>

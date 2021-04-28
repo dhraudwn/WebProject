@@ -13,6 +13,8 @@
 </head>
 <body>
     <script>
+        let result = '';
+
         function checkSelectAll(checkbox)  {
             const selectall = document.querySelector('input[name="menu_all"]');
             
@@ -48,18 +50,24 @@
             const selectedEls = 
             document.querySelectorAll(query);
             
+            result = '';
             // 선택된 목록에서 value 찾기
-            let result = '';
             selectedEls.forEach((el) => {
                 result += el.value + ', ';
             });
             result = result.slice(0, -2);
-            result += ' 메뉴를 추천드려요 :D';
-
             // 출력
-            document.getElementById('result').innerText = result;
+            document.getElementById('result').innerText = result + ' 메뉴를 추천드려요 :D';
 
         }
+        
+        function complete(){
+            result = result.replace(/, /g, "+");
+            var url = location.href;
+            var parameters = url.slice(url.indexOf('?') + 1, url.length);
+            location.href = "result.html?"+parameters+"&menu="+result;
+        }
+        
     </script>
     
 
@@ -70,7 +78,7 @@
     <input type="checkbox" name="menu" value="양식" onclick="checkSelectAll(this)"> 양식
     <input type="checkbox" name="menu" value="패스트푸드" onclick="checkSelectAll(this)"> 패스트푸드
     <input type="checkbox" name="menu" value="기타" onclick="checkSelectAll(this)"> 기타
-    <button onclick='location.href = "result.html"'>메뉴 선택 완료</button>
+    <button onclick='complete()'>메뉴 선택 완료</button>
     <button onclick='resetCheckbox()'>메뉴 다시 선택</button>
     <div id='result'></div>
 
