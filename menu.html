@@ -65,6 +65,7 @@
             result = result.replace(/, /g, "+");
             var url = location.href;
             var parameters = url.slice(url.indexOf('?') + 1, url.length);
+            result = encodeURI(result);
             location.href = "result.html?"+parameters+"&menu="+result;
         }
         

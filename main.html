@@ -106,6 +106,7 @@
         }
         function complete(){
             result = result.replace(/, /g, "+");
+            result = encodeURI(result);
             location.href = "menu.html?door="+result;
         }
 

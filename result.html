@@ -5,8 +5,147 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>today's meal</title>
+    <style>
+        body{
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=mjx3btpgmz&callback=initMap"></script>
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=mjx3btpgmz&submodules=geocoder"></script>
+    <script type="text/javascript">
+        var map = null;
+
+        function initMap() {
+            map = new naver.maps.Map('map', {
+                center: new naver.maps.LatLng(35.888836,128.608111),
+                zoom: 17
+            });
+            
+            var infoWindow = new naver.maps.InfoWindow({
+                anchorSkew: true
+            });
+
+            var address = document.getElementById('f_add').innerText;
+            naver.maps.Service.geocode({
+                query: address
+            }, function(status, response) {
+                if (status === naver.maps.Service.Status.ERROR) {
+                    if (!address) {
+                        return alert('Geocode Error, Please check address');
+                    }
+                    return alert('Geocode Error, address:' + address);
+                }
+
+                if (response.v2.meta.totalCount === 0) {
+                    return alert('No result.');
+                }
+                
+                var htmlAddresses = [],
+                    item = response.v2.addresses[0],
+                    point = new naver.maps.Point(item.x, item.y);
+
+                // if (item.roadAddress) {
+                //     htmlAddresses.push('[도로명 주소] ' + item.roadAddress);
+                // }
+
+                // if (item.jibunAddress) {
+                //     htmlAddresses.push('[지번 주소] ' + item.jibunAddress);
+                // }
+
+                // if (item.englishAddress) {
+                //     htmlAddresses.push('[영문명 주소] ' + item.englishAddress);
+                // }
+
+                // infoWindow.setContent([
+                //     '<div style="padding:10px;min-width:200px;line-height:150%;">',
+                //     '<h4 style="margin-top:5px;">검색 주소 : '+ address +'</h4><br />',
+                //     htmlAddresses.join('<br />'),
+                //     '</div>'
+                //     ].join('\n'));
+
+                map.setCenter(point);
+                var marker = new naver.maps.Marker({
+                    position: new naver.maps.LatLng(point),
+                    map: map
+                });
+                //infoWindow.open(map, point);
+            });
+        }
+    </script>    
+    <h1 id="final"></h1>
+    <h2 id="f_res"></h2>
+    <!--<div id="f_menu"></div>-->
+    <p>
+        더 많은 정보를 얻고 싶다면?
+        <button onclick="search()">네이버 검색 바로가기</button>
+    </p>
+    <h4>가게 위치 바로 보기</h4>
+    <div id="f_add"></div> 
+    <div id="map" style="width:50%;height: 500px; margin: auto;"></div>
     
 </body>
+<script>
+    var door;
+    var menu;
+    function getParmeter(){
+        var url = decodeURI(location.href);
+        var parameters = (url.slice(url.indexOf('?') + 1, url.length)).split('&');
+        var doors = parameters[0].split('=');
+        door = doors[1].split('+');
+        var menus = parameters[1].split('=');
+        menu = menus[1].split('+');
+        print();
+    }
+
+    function print(){
+        var final='';
+        door.forEach(element => {
+            final = final + element+', ';
+        });
+        final = final.slice(0, -2) + "에서 ";
+        menu.forEach(element => {
+            final = final + element+', ';
+        });
+        final = final.slice(0, -2) + "메뉴를 추천한 결과입니다:D";
+
+        document.getElementById('final').innerText = final;
+    }
+
+    function result(){
+        // 위치, 이름, 주소 형태. 종류 : 한식-0 일식-1 중식-2 양식-3 패스트푸드-4 기타-5
+        var north = [[0, "고니식탁","대구 북구 산격로6길 29"], [5, "뉴살라딘"], [0,"유가네 닭갈비","대구 북구 대학로17길 8"]];
+        var east = [];
+        var south = [];
+
+        var resList = [];
+        north.forEach(element => {
+            if(element[0] === 0){
+                resList.push(element);
+            }
+        });
+
+        var f = randomItem(resList);
+        setInnerText('f_res', f[1]);
+        //setInnerText('f_menu', f[0]);
+        setInnerText('f_add', f[2]);
+        
+    }
+    function randomItem(a) {
+        return a[Math.floor(Math.random() * a.length)];
+    }
+    function setInnerText(id, val) {
+        const element = document.getElementById(id);
+        element.innerText = val;
+    }
+
+    function search(){
+        var restaurant = document.getElementById('f_res').innerText;
+        var address = document.getElementById('f_add').innerText;
+        location.href="https://search.naver.com/search.naver?query="+restaurant+" "+address;
+    }
+    getParmeter();
+    result();
+</script>
 </html>
