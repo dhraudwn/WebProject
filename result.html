@@ -76,14 +76,19 @@
     </script>    
     <h1 id="final"></h1>
     <h2 id="f_res"></h2>
+    <hr>
     <!--<div id="f_menu"></div>-->
-    <p>
+    <dic id="f_info">
         더 많은 정보를 얻고 싶다면?
         <button onclick="search()">네이버 검색 바로가기</button>
-    </p>
-    <h4>가게 위치 바로 보기</h4>
-    <div id="f_add"></div> 
-    <div id="map" style="width:50%;height: 500px; margin: auto;"></div>
+        <br><br>
+        다시 장소와 메뉴를 선택하고 싶다면?
+        <button onclick="location.href = 'main.html'">다시 선택하기</button>
+        <h4>가게 위치 바로 보기</h4>
+        <div id="f_add"></div> 
+        <div id="map" style="width:50%;height: 500px; margin: auto;"></div>
+    </div>
+    
     
 </body>
 <script>
@@ -170,6 +175,11 @@
             }
         }
         
+        if(resList.length === 0){
+            setInnerText('f_res', "조건에 맞는 음식점이 없습니다.");
+            document.getElementById('f_info').innerHTML = "<button onclick=\"location.href = 'main.html'\">다시 선택하기</button>";
+            return;
+        }
         var f = randomItem(resList);
         setInnerText('f_res', f[1]);
         //setInnerText('f_menu', f[0]);
