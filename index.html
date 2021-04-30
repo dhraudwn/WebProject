@@ -7,19 +7,67 @@
     <title>today's meal</title>
     <style>
         body{
+            margin:0px;
+        }
+        .bg{
+            width: 100%;
+            height: 100%;
+            position: relative;
+            height: 100vh;
+            z-index: 1;
+            margin: 0;
+            padding: 0;
+        }
+        .bg::after{
+            content: "";
+            background-image: url("image/meal1.jpg"); 
+            background-repeat : no-repeat;
+            background-size : cover;
+            
+            opacity: 0.5;
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            bottom: 0px;
+            left: 0px;
+            z-index: -1;
+        }
+        .msg{
+            height: 100%;
+            width: 100%;
+            position: relative;
+            margin: 0px;
+            font-size: 250%;
+            font-weight:bolder;
+            color: black;
+            line-height: 160%;
+            padding : 10% 3%;
+        }
+
+        .link{
             text-align: center;
         }
+        a{
+            background-color: white;
+            background-color: rgba(255,255,255,0.5);
+        }
+
     </style>
 
 </head>
 <body>
+    <div class="bg">
+        <div class="msg">
+            <p>
+                어서오세요:) <br>
+                당신의 점심/저녁 고민을 해결해드려요! <br>
+            </p>
+        <div class="link">
+            <br><br>
+            <a href="main.html">시작하기</a>
+        </div>
+        </div>
+    </div>
     
-    <p>
-        어서오세요:) <br>
-        당신의 점심/저녁 고민을 해결해드려요 <br>
-    </p>
-
-    <a href="main.html">시작하기</a>
-
 </body>
 </html>
