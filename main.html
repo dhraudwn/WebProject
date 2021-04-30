@@ -8,6 +8,36 @@
     <style>
         body{
             text-align: center;
+            margin:0px;
+            background-color: rgba(200, 100, 100, 0.3);
+        }
+        .bg{
+            width: 100%;
+            height: 100%;
+            position: relative;
+            height: 100vh;
+            z-index: 1;
+            margin: 0;
+            padding: 0;
+            display: contents;
+        }
+        .bg::after{
+            content: "";
+            background-image: url("image/meal2.jpg"); 
+            background-attachment:fixed;   
+            background-repeat : no-repeat;
+            background-size : cover;
+            
+            opacity: 0.5;
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            bottom: 0px;
+            left: 0px;
+            z-index: -1;
+        }
+        p{
+            margin : 0px;
         }
         img{
             position: static;
@@ -16,9 +46,9 @@
             object-fit: contain;
 
         }
-        div{
-            width: 80%;
-            height: 80%;
+        .map{
+            width: 70%;
+            height: 70%;
             position : relative;
             display: block;
             margin-left: auto;
@@ -30,6 +60,7 @@
             position: absolute;
             align-items: center;
             justify-content: center;
+            font-weight: bold;
         }
         .door:hover{
             text-decoration: underline;
@@ -37,7 +68,7 @@
         #north{
             width: 40%;
             height : 60%;
-            top : 0%;
+            top : 5%;
             left : 20%;
         }
         #east{
@@ -52,66 +83,26 @@
             bottom: 0%;
             left : 30%;
         }
-
+        #msg{
+            padding: 1%;
+            color:white;
+            font-weight: bolder;
+            font-size: larger;
+            line-height: 160%;
+        }
+        #result{
+            margin-top: 10px;
+            margin-bottom: 10px;
+            color: aliceblue;
+            font-weight:bolder;
+        }
     </style>
 </head>
 <body>
-    <script>
-        let result = '';
-        var n = 0;
-        var e = 0;
-        var s = 0;
-
-        function nClick(){
-            if(n === 0){
-                n = 1;
-            }
-            else{
-                n = 0;
-            }
-            message();
-        }
-        function eClick(){
-            if(e === 0){
-                e = 1;
-            }
-            else{
-                e = 0;
-            }
-            message();
-        }
-        function sClick(){
-            if(s === 0){
-                s = 1;
-            }
-            else{
-                s = 0;
-            }
-            message();
-        }
-        function message(){
-            result = '';
-            if(n === 1) result = result + "북문, ";
-            if(e === 1) result = result + "동문, ";
-            if(s === 1) result = result + "쪽문, ";
-            result = result.slice(0, -2);
-
-            if(result != ''){
-                document.getElementById('result').innerText = result + ' 에서 드시겠어요?';
-            }
-
-            else{
-                document.getElementById('result').innerText = result;
-            }
-        }
-        function complete(){
-            result = result.replace(/, /g, "+");
-            result = encodeURI(result);
-            location.href = "menu.html?door="+result;
-        }
-
-    </script>
-    <p>
+    <div class="bg">
+        
+    </div>
+    <p id="msg">
         어디서 밥을 드시나요?
         <br>
         (밥 먹을 곳을 클릭해주세요:D)
@@ -133,4 +124,69 @@
         <button onclick='complete()'>장소 선택 완료</button>
     </p>
 </body>
+<script>
+    let result = '';
+    var n = 0;
+    var e = 0;
+    var s = 0;
+
+    function nClick(){
+        var col = document.getElementById('north');
+        if(n === 0){
+            n = 1;
+            col.style.color = "magenta";
+        }
+        else{
+            n = 0;
+            col.style.color = "blue";
+        }
+        message();
+    }
+    function eClick(){
+        var col = document.getElementById('east');
+
+        if(e === 0){
+            col.style.color = "magenta";
+            e = 1;
+        }
+        else{
+            col.style.color = "blue";
+            e = 0;
+        }
+        message();
+    }
+    function sClick(){
+        var col = document.getElementById('south');
+        if(s === 0){
+            col.style.color = "magenta";
+            s = 1;
+        }
+        else{
+            col.style.color = "blue";
+            s = 0;
+        }
+        message();
+    }
+    function message(){
+        result = '';
+        if(n === 1) result = result + "북문, ";
+        if(e === 1) result = result + "동문, ";
+        if(s === 1) result = result + "쪽문, ";
+        result = result.slice(0, -2);
+
+        if(result != ''){
+            document.getElementById('result').innerText = result + ' 에서 드시겠어요?';
+        }
+
+        else{
+            document.getElementById('result').innerText = result;
+        }
+    }
+    function complete(){
+        result = result.replace(/, /g, "+");
+        result = encodeURI(result);
+        location.href = "menu.html?door="+result;
+    }
+
+</script>
 </html>
