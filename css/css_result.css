@@ -15,7 +15,7 @@ body{
 .bg::after{
     content: "";
     background-image: url("../image/meal4.jpg"); 
-    background-attachment:fixed;   
+    background-attachment: fixed;   
     background-repeat : repeat;
     background-size : cover;
     
