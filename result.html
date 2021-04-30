@@ -8,6 +8,42 @@
     <style>
         body{
             text-align: center;
+            background-color: rgba(200, 100, 100, 0.3);
+        }
+        .bg{
+            width: 100%;
+            height: 100%;
+            position: relative;
+            height: 100vh;
+            z-index: 1;
+            margin: 0;
+            padding: 0;
+            display: contents;
+        }
+        .bg::after{
+            content: "";
+            background-image: url("image/meal4.jpg"); 
+            background-attachment:fixed;   
+            background-repeat : repeat;
+            background-size : cover;
+            
+            opacity: 0.7;
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            bottom: 0px;
+            left: 0px;
+            z-index: -1;
+        }
+        .btn{
+            margin : auto;
+            text-align: left;
+            width:50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            padding: 5px;
+        }
+        button{
+            float: right;
         }
     </style>
 </head>
@@ -46,25 +82,6 @@
                     item = response.v2.addresses[0],
                     point = new naver.maps.Point(item.x, item.y);
 
-                // if (item.roadAddress) {
-                //     htmlAddresses.push('[도로명 주소] ' + item.roadAddress);
-                // }
-
-                // if (item.jibunAddress) {
-                //     htmlAddresses.push('[지번 주소] ' + item.jibunAddress);
-                // }
-
-                // if (item.englishAddress) {
-                //     htmlAddresses.push('[영문명 주소] ' + item.englishAddress);
-                // }
-
-                // infoWindow.setContent([
-                //     '<div style="padding:10px;min-width:200px;line-height:150%;">',
-                //     '<h4 style="margin-top:5px;">검색 주소 : '+ address +'</h4><br />',
-                //     htmlAddresses.join('<br />'),
-                //     '</div>'
-                //     ].join('\n'));
-
                 map.setCenter(point);
                 var marker = new naver.maps.Marker({
                     position: new naver.maps.LatLng(point),
@@ -73,26 +90,35 @@
                 //infoWindow.open(map, point);
             });
         }
-    </script>    
-    <h1 id="final"></h1>
-    <h2 id="f_res"></h2>
+    </script>  
+    <div class="t" style="background-color: rgba(255, 255, 255, 0.5); width:90%; margin:auto;">
+        <h2 id="final"></h2>
+        <h1 id="f_res"></h1>
+    </div>  
     <hr>
     <!--<div id="f_menu"></div>-->
-    <dic id="f_info">
-        더 많은 정보를 얻고 싶다면?
-        <button onclick="search()">네이버 검색 바로가기</button>
-        <br><br>
-        다른 메뉴를 추천받고 싶다면?
-        <button onclick="location.href = location.href">다시 선택하기</button>
-        <br><br>
-        다시 장소와 메뉴를 선택하고 싶다면?
-        <button onclick="location.href = 'main.html'">다시 선택하기</button>
-        <h4>가게 위치 바로 보기</h4>
-        <div id="f_add"></div> 
-        <div id="map" style="width:50%;height: 500px; margin: auto;"></div>
+    <div class="bg">
+        <dic id="f_info">
+            <div class="btn">
+                <p>
+                    더 많은 정보를 얻고 싶다면?
+                    <button onclick="search()">네이버 검색 바로가기</button>
+                </p>
+                <p>
+                    다른 메뉴를 추천받고 싶다면?
+                    <button onclick="location.href = location.href">다른 메뉴 추천받기</button>
+                </p>
+                <p>
+                    다시 장소와 메뉴를 선택하고 싶다면?
+                    <button onclick="location.href = 'main.html'">다시 선택하기</button>
+                </p>
+            </div>
+            <br>
+            <h4 style="background-color: rgba(255, 255, 255, 0.5); width: 200px; margin: auto;">가게 위치 바로 보기</h4>
+            <div id="f_add" style="color: white;"></div> 
+            <div id="map" style="width:50%;height: 500px; margin: auto;"></div>
+        </div>    
     </div>
-    
-    
 </body>
 <script>
     var door;

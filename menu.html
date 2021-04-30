@@ -8,80 +8,153 @@
     <style>
         body{
             text-align: center;
+            background-color: rgba(200, 100, 100, 0.3);
+        }
+        .bg{
+            width: 100%;
+            height: 100%;
+            position: relative;
+            height: 100vh;
+            z-index: 1;
+            margin: 0;
+            padding: 0;
+            display: contents;
+        }
+        .bg::after{
+            content: "";
+            background-image: url("image/meal3.jpg"); 
+            background-attachment:fixed;   
+            background-repeat : no-repeat;
+            background-size : cover;
+            
+            opacity: 0.7;
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            bottom: 0px;
+            left: 0px;
+            z-index: -1;
+        }
+        .m-table{
+            display:table;
+            margin :auto;
+            /* table-layout: fixed; */
+            border-spacing: 20px;
+
+        }
+        .m-table-row{
+            display: table-row;
+        }
+        .m-table-cell{
+            display: table-cell;
+            width : 150px;
+            height : 150px;
+            vertical-align: middle;
+            color:white;
+            background-color: rgba(0, 0, 0, 0.5);
         }
     </style>
 </head>
 <body>
-    <script>
-        let result = '';
-
-        function checkSelectAll(checkbox)  {
-            const selectall = document.querySelector('input[name="menu_all"]');
-            
-            if(checkbox.checked === false)  {
-                selectall.checked = false;
-            }
-            
-            menuResult();
-        }
-
-        function selectAll(selectAll)  {
-            const checkboxes = document.getElementsByName('menu');
-            
-            checkboxes.forEach((checkbox) => {
-                checkbox.checked = selectAll.checked
-            })
-
-            menuResult();
-        }
-
-        function resetCheckbox(){
-            const selectall = document.querySelector('input[name="menu_all"]');
-            selectall.checked = false;
-            selectAll(selectall);
-
-            menuResult();
-        }
-
-        // 출력
-        
-        function menuResult(){
-            const query = 'input[name="menu"]:checked';
-            const selectedEls = 
-            document.querySelectorAll(query);
-            
-            result = '';
-            // 선택된 목록에서 value 찾기
-            selectedEls.forEach((el) => {
-                result += el.value + ', ';
-            });
-            result = result.slice(0, -2);
-            // 출력
-            document.getElementById('result').innerText = result + ' 메뉴를 추천드려요 :D';
-
-        }
-        
-        function complete(){
-            result = result.replace(/, /g, "+");
-            var url = location.href;
-            var parameters = url.slice(url.indexOf('?') + 1, url.length);
-            result = encodeURI(result);
-            location.href = "result.html?"+parameters+"&menu="+result;
-        }
-        
-    </script>
-    
-
-    <input type="checkbox" name="menu_all" value="전체" onclick="selectAll(this)"> 전체
-    <input type="checkbox" name="menu" value="한식" onclick="checkSelectAll(this)"> 한식
-    <input type="checkbox" name="menu" value="일식" onclick="checkSelectAll(this)"> 일식
-    <input type="checkbox" name="menu" value="중식" onclick="checkSelectAll(this)"> 중식
-    <input type="checkbox" name="menu" value="양식" onclick="checkSelectAll(this)"> 양식
-    <input type="checkbox" name="menu" value="패스트푸드" onclick="checkSelectAll(this)"> 패스트푸드
-    <input type="checkbox" name="menu" value="기타" onclick="checkSelectAll(this)"> 기타
+    <div class="bg">
+        <h1 style="color:white; background-color: rgba(0, 0, 0, 0.5);">원하는 메뉴를 선택해주세요 :)</h1>
+    <hr>
+    <div class="m-table">
+        <div class="m-table-row">
+            <div class="m-table-cell">
+                <input type="checkbox" name="menu" value="한식" onclick="checkSelectAll(this)"> 한식
+            </div>
+            <div class="m-table-cell">
+                <input type="checkbox" name="menu" value="일식" onclick="checkSelectAll(this)"> 일식
+            </div>
+            <div class="m-table-cell">
+                <input type="checkbox" name="menu" value="중식" onclick="checkSelectAll(this)"> 중식          
+            </div>
+        </div>
+        <div class="m-table-row">
+            <div class="m-table-cell">
+                <input type="checkbox" name="menu" value="양식" onclick="checkSelectAll(this)"> 양식
+            </div>
+            <div class="m-table-cell">
+                <input type="checkbox" name="menu" value="패스트푸드" onclick="checkSelectAll(this)"> 패스트푸드
+            </div>
+            <div class="m-table-cell">
+                <input type="checkbox" name="menu" value="기타" onclick="checkSelectAll(this)"> 기타
+            </div>
+        </div>
+        <div class="m-table-row">
+            <div></div>
+            <div class="m-table-cell">
+                <input type="checkbox" name="menu_all" value="전체" onclick="selectAll(this)"> 전체
+            </div>
+        </div>
+    </div>
     <button onclick='complete()'>메뉴 선택 완료</button>
     <button onclick='resetCheckbox()'>메뉴 다시 선택</button>
-    <div id='result'></div>
-
+    <div id='result' style="margin-top:10px; color:white; font-weight: bold;"></div>
+    </div>
+    
 </body>
+<script>
+    let result = '';
+
+    function checkSelectAll(checkbox)  {
+        const selectall = document.querySelector('input[name="menu_all"]');
+        
+        if(checkbox.checked === false)  {
+            selectall.checked = false;
+        }
+        
+        menuResult();
+    }
+
+    function selectAll(selectAll)  {
+        const checkboxes = document.getElementsByName('menu');
+        
+        checkboxes.forEach((checkbox) => {
+            checkbox.checked = selectAll.checked
+        })
+
+        menuResult();
+    }
+
+    function resetCheckbox(){
+        const selectall = document.querySelector('input[name="menu_all"]');
+        selectall.checked = false;
+        selectAll(selectall);
+
+        menuResult();
+    }
+
+    // 출력
+    
+    function menuResult(){
+        const query = 'input[name="menu"]:checked';
+        const selectedEls = 
+        document.querySelectorAll(query);
+        
+        result = '';
+        // 선택된 목록에서 value 찾기
+        selectedEls.forEach((el) => {
+            result += el.value + ', ';
+        });
+        result = result.slice(0, -2);
+        // 출력
+        if(result.length === 0){
+            document.getElementById('result').innerText = result;
+            return;
+        }
+        document.getElementById('result').innerText = result + ' 메뉴를 추천드려요 :D';
+
+    }
+    
+    function complete(){
+        result = result.replace(/, /g, "+");
+        var url = location.href;
+        var parameters = url.slice(url.indexOf('?') + 1, url.length);
+        result = encodeURI(result);
+        location.href = "result.html?"+parameters+"&menu="+result;
+    }
+    
+</script>
 </html>
