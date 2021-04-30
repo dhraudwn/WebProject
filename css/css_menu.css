@@ -1,0 +1,47 @@
+body{
+    text-align: center;
+    background-color: rgba(200, 100, 100, 0.3);
+}
+.bg{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    height: 100vh;
+    z-index: 1;
+    margin: 0;
+    padding: 0;
+    display: contents;
+}
+.bg::after{
+    content: "";
+    background-image: url("../image/meal3.jpg"); 
+    background-attachment:fixed;   
+    background-repeat : no-repeat;
+    background-size : cover;
+    
+    opacity: 0.7;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    z-index: -1;
+}
+.m-table{
+    display:table;
+    margin :auto;
+    /* table-layout: fixed; */
+    border-spacing: 20px;
+
+}
+.m-table-row{
+    display: table-row;
+}
+.m-table-cell{
+    display: table-cell;
+    width : 150px;
+    height : 150px;
+    vertical-align: middle;
+    color:white;
+    background-color: rgba(0, 0, 0, 0.5);
+}

@@ -5,55 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>today's meal</title>
-    <style>
-        body{
-            text-align: center;
-            background-color: rgba(200, 100, 100, 0.3);
-        }
-        .bg{
-            width: 100%;
-            height: 100%;
-            position: relative;
-            height: 100vh;
-            z-index: 1;
-            margin: 0;
-            padding: 0;
-            display: contents;
-        }
-        .bg::after{
-            content: "";
-            background-image: url("image/meal3.jpg"); 
-            background-attachment:fixed;   
-            background-repeat : no-repeat;
-            background-size : cover;
-            
-            opacity: 0.7;
-            position: absolute;
-            top: 0px;
-            right: 0px;
-            bottom: 0px;
-            left: 0px;
-            z-index: -1;
-        }
-        .m-table{
-            display:table;
-            margin :auto;
-            /* table-layout: fixed; */
-            border-spacing: 20px;
-
-        }
-        .m-table-row{
-            display: table-row;
-        }
-        .m-table-cell{
-            display: table-cell;
-            width : 150px;
-            height : 150px;
-            vertical-align: middle;
-            color:white;
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="./css/css_menu.css"> 
 </head>
 <body>
     <div class="bg">
@@ -93,68 +45,6 @@
     <button onclick='resetCheckbox()'>메뉴 다시 선택</button>
     <div id='result' style="margin-top:10px; color:white; font-weight: bold;"></div>
     </div>
-    
+    <script type="text/javascript" src="./script/scr_menu.js"></script>
 </body>
-<script>
-    let result = '';
-
-    function checkSelectAll(checkbox)  {
-        const selectall = document.querySelector('input[name="menu_all"]');
-        
-        if(checkbox.checked === false)  {
-            selectall.checked = false;
-        }
-        
-        menuResult();
-    }
-
-    function selectAll(selectAll)  {
-        const checkboxes = document.getElementsByName('menu');
-        
-        checkboxes.forEach((checkbox) => {
-            checkbox.checked = selectAll.checked
-        })
-
-        menuResult();
-    }
-
-    function resetCheckbox(){
-        const selectall = document.querySelector('input[name="menu_all"]');
-        selectall.checked = false;
-        selectAll(selectall);
-
-        menuResult();
-    }
-
-    // 출력
-    
-    function menuResult(){
-        const query = 'input[name="menu"]:checked';
-        const selectedEls = 
-        document.querySelectorAll(query);
-        
-        result = '';
-        // 선택된 목록에서 value 찾기
-        selectedEls.forEach((el) => {
-            result += el.value + ', ';
-        });
-        result = result.slice(0, -2);
-        // 출력
-        if(result.length === 0){
-            document.getElementById('result').innerText = result;
-            return;
-        }
-        document.getElementById('result').innerText = result + ' 메뉴를 추천드려요 :D';
-
-    }
-    
-    function complete(){
-        result = result.replace(/, /g, "+");
-        var url = location.href;
-        var parameters = url.slice(url.indexOf('?') + 1, url.length);
-        result = encodeURI(result);
-        location.href = "result.html?"+parameters+"&menu="+result;
-    }
-    
-</script>
 </html>
